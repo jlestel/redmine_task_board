@@ -6,7 +6,7 @@ class TaskboardController < ApplicationController
   helper_method :column_manager_locals
 
   def index
-    @columns = TaskBoardColumn.find_all_by_project_id(@project.id, :order => 'weight')
+	@columns = TaskBoardColumn.find_all_by_project_id(@project.id, :order => 'weight')
     @status_names = Hash.new
     IssueStatus.select([:id, :name]).each do |status|
       @status_names[status.id] = status.name
@@ -72,8 +72,8 @@ class TaskboardController < ApplicationController
       status_id = status_id.to_i
       column_id = column_id.to_i
       unless column_id == 0
-        @columnsn = TaskBoardColumn.find(column_id)
-        @column.issue_statuses << IssueStatus.find(status_id)
+        @columns = TaskBoardColumn.find(column_id)
+        @columns.issue_statuses << IssueStatus.find(status_id)
       end
     end
     render 'settings/update'

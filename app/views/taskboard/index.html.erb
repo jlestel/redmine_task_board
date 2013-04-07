@@ -8,8 +8,9 @@
 <div class="taskboard-wrapper" id="sortable-root">
   <% @columns.each do|column| %>
     <div class="taskboard-pane">
-      <h2><%= column.title %></h2>
-      <% column.issues.each do |status_id, issues| %>
+    <% issues = column.issues %>
+      <h2><%= column.title %> (<%= column.issues_count %> / <%= column.max_issues %>)</h2>
+      <% issues.each do |status_id, issues| %>
         <% unless column.issues.size == 1 %>
           <h3 class="status"><%= @status_names[status_id] %></h3>
         <% end %>
