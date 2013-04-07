@@ -1,0 +1,19 @@
+# Frech strings go here for Rails i18n
+fr:
+  label_task_board: Tableau des tâches
+  task_board_help: Il est nécessaire de créer les colonnes du tableau. Chaque colonne peut contenir plusieurs statuts.
+  task_board_column_title: Titre de la colonne
+  task_board_create_column: Créer la colonne
+  label_task_board_application_error: Erreur de l'application
+  task_board_statuses: Status
+  task_board_columns: Colonnes
+  task_board_not_shown: Invisible
+  task_board_visible_columns: Colonnes visibles
+  task_board_task_limit: Nb de tâches max.
+  task_board_save_changes: Enregistrer
+  task_board_issue_archived: La tâche a été archivée depuis le tableau et ne sera plus affichée.
+  task_board_issue_unarchive: Dé-archiver la tâche
+  task_board_issue_bulk_archive: Archiver les tâches sélectionnées
+  task_board_issue_bulk_edit: Editer les tâches sélectionnées
+  task_board_not_prioritized: Autres tâches
+  task_board_prioritized: Tâches priorisées
