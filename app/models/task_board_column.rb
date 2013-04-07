@@ -27,10 +27,11 @@ class TaskBoardColumn < ActiveRecord::Base
   			ids.push child.id
   		end
   	
-  		issues = Issue.select("issues.*, tbi.is_archived, tbi.#{order_column} as weight, tbi.issue_id") \
+  		issues = Issue.select("issues.*, tbi.is_archived, tbi.#{order_column} as weight, tbi.issue_id, projects.name as project_name") \
   			.joins('LEFT OUTER JOIN task_board_issues AS tbi ON tbi.issue_id = issues.id') \
+        .joins('INNER JOIN projects ON projects.id = issues.project_id') \
   			.where("project_id IN (?) AND status_id = ? AND (is_archived IS NULL OR is_archived = 0)", ids, status.id) \
-  			.order("due_date ASC, weight ASC, created_on ASC")
+  			.order("due_date DESC, weight ASC, created_on ASC")
   		
   		@@issues_count += issues.count
   		
