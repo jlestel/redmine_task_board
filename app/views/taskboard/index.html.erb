@@ -5,7 +5,7 @@
   <input type="button" id="archive-issues" value="<%= translate :task_board_issue_bulk_archive %>" />
 </div>
 
-<div class="taskboard-wrapper" id="sortable-root">
+<div class="taskboard-wrapper" id="sortable-root" style="width:<%= @columns.count*250 %>px">
   <% @columns.each do|column| %>
     <div class="taskboard-pane">
     <% issues = column.issues %>
