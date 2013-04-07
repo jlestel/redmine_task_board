@@ -21,7 +21,8 @@
                 <div class="issue-heading">
                   <p class="issue-number meta">
                     <input type="checkbox" name="ids[]" value="<%= issue.id.to_s %>" />
-                    <%= link_to issue.project_name, :controller => :projects, :action => :show, :id => issue.project_id %> / <%= link_to "#{issue.tracker} ##{issue.id.to_s}", :controller => :issues, :action => :show, :id => issue.id %>
+                    <%= link_to issue.project_name, :controller => :projects, :action => :show, :id => issue.project_id %>
+                    <br/><%= link_to "#{issue.tracker} ##{issue.id.to_s}", :controller => :issues, :action => :show, :id => issue.id %>
                   </p>
                   <p class="issue-priority">
                     <%= issue.priority.name %>
