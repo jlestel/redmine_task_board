@@ -5,7 +5,7 @@
   <input type="button" id="archive-issues" value="<%= translate :task_board_issue_bulk_archive %>" />
 </div>
 
-<div class="taskboard-wrapper" id="sortable-root" style="width:<%= @columns.count*250 %>px">
+<div class="taskboard-wrapper" id="sortable-root">
   <% @columns.each do|column| %>
     <div class="taskboard-pane">
     <% issues = column.issues %>
@@ -54,6 +54,10 @@
   }
   TaskBoardUtils.checkboxListener();
   // Sortable.create('sortable-root', {tree: true, dropOnEmpty: true, constraint: false, overlap: 'vertical'});
+
+  // Init content div
+  document.getElementById('content').style.width = '<%= @columns.count*250 %>px';
+
 </script>
 
 <% content_for :header_tags do %>
