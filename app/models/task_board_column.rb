@@ -5,7 +5,6 @@ class TaskBoardColumn < ActiveRecord::Base
   validates_presence_of :title, :project
   validates_length_of :title, :maximum => 255
 
-  @@issues_count
   
   def self.empty_status(status_id)
     columns = TaskBoardColumn \
