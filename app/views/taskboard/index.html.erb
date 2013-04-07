@@ -21,7 +21,7 @@
                 <div class="issue-heading">
                   <p class="issue-number meta">
                     <input type="checkbox" name="ids[]" value="<%= issue.id.to_s %>" />
-                    <%= link_to "#{issue.tracker} ##{issue.id.to_s}", :controller => :issues, :action => :show, :id => issue.id %> <%if issue.due_date %>: <%= localize issue.due_date %> <% end %>
+                    <%= link_to issue.project_name, :controller => :projects, :action => :show, :id => issue.project_id %> <%= link_to "#{issue.tracker} ##{issue.id.to_s}", :controller => :issues, :action => :show, :id => issue.id %>
                   </p>
                   <p class="issue-priority">
                     <%= issue.priority.name %>
@@ -30,7 +30,7 @@
                 <h3><%= link_to issue.subject, :controller => :issues, :action => :show, :id => issue.id %></h3>
                 <% if defined? issue.assigned_to.name %>
                   <p class="meta">
-                    <%= link_to issue.project_name, :controller => :projects, :action => :show, :id => issue.project_id %> / <%= link_to issue.assigned_to.name, :controller => :users, :action => :show, :id => issue.assigned_to.id %>
+                      <%= link_to issue.assigned_to.name, :controller => :users, :action => :show, :id => issue.assigned_to.id %><%if issue.due_date %>: <%= localize issue.due_date %> <% end %>
                   </p>
                 <% end %>
               </div>
