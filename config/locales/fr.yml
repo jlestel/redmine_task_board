@@ -14,6 +14,7 @@ fr:
   task_board_issue_archived: La tâche a été archivée depuis le tableau et ne sera plus affichée.
   task_board_issue_unarchive: Dé-archiver la tâche
   task_board_issue_bulk_archive: Archiver les tâches sélectionnées
+  task_board_issue_bulk_delete: Supprimer les tâches sélectionnées
   task_board_issue_bulk_edit: Editer les tâches sélectionnées
   task_board_not_prioritized: Autres tâches
   task_board_prioritized: Tâches priorisées

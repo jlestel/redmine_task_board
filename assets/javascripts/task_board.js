@@ -204,6 +204,114 @@ var TaskBoardUtils = {
     });
   },
 
+  comboboxListeners: function() {
+    // Add listeners on comboboxes
+    $("#filter_search").keyup(this.filterCards);
+    $("#project_parent_id").change(this.filterCards);
+    $("#filter_creator_id").change(this.filterCards);
+    $("#filter_user_id").change(this.filterCards);
+    $("#include_sub_project").change(this.filterCards);
+    $( "#from" ).change(this.filterCards);
+    $( "#to" ).change(this.filterCards);
+
+    $("#evolutions").click(this.filterCards);
+    $("#bug").click(this.filterCards);
+    $("#critical_date").click(this.filterCards);
+  },
+
+  filterCards: function() {
+
+    if (this.classList.contains("sample")) {
+      if ($("#filter_type_tracker")[0].classList.contains(this.id)) {
+        $("#filter_type_tracker").removeClass(this.id);
+        $("#"+this.id).removeClass('selected');
+      } else {
+        $("#filter_type_tracker").addClass(this.id);
+        $("#"+this.id).addClass('selected');
+      }
+    }
+
+    // Browse all cards
+    $(".card").each(function(index) {
+      var filter_search = $("#filter_search")[0].value;
+      var filter_project = $("#project_parent_id")[0].value;
+      var filter_creator = $("#filter_creator_id")[0].value;
+      var filter_assignee = $("#filter_user_id")[0].value;
+      var filter_type_tracker = $("#filter_type_tracker")[0].classList;
+      var include_sub_project = $("#include_sub_project")[0].checked;
+      var from_date = $("#from")[0].value;
+      var to_date = $("#to")[0].value;
+
+      var card_project = this.attributes['data-project-id'].value;
+      var card_creator = this.attributes['data-author-id'].value;
+      var card_creator_label = this.attributes['data-author-label'].value;
+      var card_assignee = this.attributes['data-assignee-id'].value;
+      var card_assignee_label = this.attributes['data-assignee-label'].value;
+      var card_label = this.attributes['data-label'].value;
+      var card_date_start = this.attributes['data-date-start'].value;
+      var card_date_end = this.attributes['data-date-end'].value;
+
+      // Get sub projects
+      var sub_projects = '';
+      var display = true;
+
+      if (filter_search != '') {
+        display = (
+          card_label.toLowerCase().indexOf(filter_search) >= 0 ||
+          card_creator_label.toLowerCase().indexOf(filter_search) >= 0 ||
+          card_assignee_label.toLowerCase().indexOf(filter_search) >= 0
+          );
+      }
+
+      if (display && filter_type_tracker.length) {
+        for(var cpt=0; cpt < filter_type_tracker.length; cpt++) {
+          if (!this.classList.contains(filter_type_tracker[cpt]))
+            display = false;
+        }
+      }
+
+      // Hide checkbox if there's no sub-projects
+      if (display && filter_project != '') {
+        sub_projects = $("#project_" + filter_project)[0].value;
+        var label = $("#label_chk_sub_project");
+        (sub_projects != "") ? label.show() : label.hide();
+      }     
+
+      // Filter by creator
+      if (display && filter_creator != '' && card_creator != filter_creator)
+        display = false;
+
+      // Filter by assignee
+      if (display && filter_assignee != '' && card_assignee != filter_assignee)
+        display = false;
+
+      // Filter by project
+      if (display && filter_project != '' && card_project != filter_project) {
+        display = false;
+        if (include_sub_project) {
+          // Search if card project is in sub-projects of current project filtered
+          if (sub_projects != "") {
+            if (sub_projects.split(",").indexOf(card_project) >= 0)
+              display = true;
+          }
+        }
+      }
+
+      if (display && from_date != '')
+          display = Date.parse(from_date) <= Date.parse(card_date_start);
+
+      if (display && to_date != '') {
+        display = Date.parse(to_date) >= Date.parse(card_date_end) && card_date_end != '';
+        if (display) {
+          console.log(Date.parse(to_date) +'-'+ Date.parse(card_date_end) + '-' + card_label );
+        }
+      }
+
+      // Display card if needed
+      (display) ? $(this).show() : $(this).hide();
+    });  
+  },
+
   checkboxListener: function() {
     TaskBoardUtils.hideButtonsIfNoneChecked();
     $(document).on('click', '.card input[type="checkbox"]', function() {
@@ -222,6 +330,24 @@ var TaskBoardUtils = {
     $(document).on('click', '#archive-issues', function() {
       $('#ajax-indicator').show();
       $.ajax(project_archive_url, {
+        type: 'post',
+        data: TaskBoardUtils.serializeCheckedButtons(),
+        complete: function() {
+          $('#ajax-indicator').hide();
+        },
+        success: function() {
+          $('.card input[type="checkbox"]').each(function() {
+            if ($(this).is(':checked')) {
+              $('#issue_' + $(this).val()).remove();
+            }
+          });
+        }
+      });
+    });
+
+    $(document).on('click', '#delete-issues', function() {
+      $('#ajax-indicator').show();
+      $.ajax(project_delete_url, {
         type: 'post',
         data: TaskBoardUtils.serializeCheckedButtons(),
         complete: function() {

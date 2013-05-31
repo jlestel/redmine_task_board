@@ -40,6 +40,15 @@ class TaskboardController < ApplicationController
     end
   end
 
+  def delete_issues
+    params[:ids].each do |issue_id|
+      TaskBoardIssue.find_by_issue_id(issue_id).delete()
+    end
+    respond_to do |format|
+      format.js{ head :ok }
+    end
+  end
+
   def unarchive_issue
     TaskBoardIssue.find_by_issue_id(params[:issue_id]).update_attribute(:is_archived, false)
     respond_to do |format|

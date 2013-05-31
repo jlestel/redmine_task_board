@@ -7,6 +7,7 @@ get 'my/taskboard', :to => 'my_taskboard#my_index'
 get 'projects/:project_id/taskboard', :to => 'taskboard#index'
 post 'projects/:project_id/taskboard/save', :to => 'taskboard#save'
 post 'projects/:project_id/taskboard/archive-issues', :to => 'taskboard#archive_issues'
+post 'projects/:project_id/taskboard/delete-issues', :to => 'taskboard#delete_issues'
 post 'issues/:issue_id/taskboard-unarchive', :to => 'taskboard#unarchive_issue'
 post 'projects/:project_id/taskboard/columns/create', :to => 'taskboard#create_column', :as => :project_taskboard_columns_create
 delete 'projects/:project_id/taskboard/columns/:column_id/delete', :to => 'taskboard#delete_column', :as => :project_taskboard_columns_delete

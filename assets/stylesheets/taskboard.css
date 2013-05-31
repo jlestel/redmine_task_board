@@ -38,69 +38,76 @@
   background: #fff;
 }
 
-.taskboard-pane ul li.card {
+.controller-taskboard li.card {
   list-style-type: none;
   margin: 0 0 6px 0;
   padding: 0;
 }
 
-.taskboard-pane ul li.card.over-limit div.issue {
+.controller-taskboard li.card.over-limit div.issue {
   color: #aaa;
   background: #ddd;
 }
 
-.taskboard-pane ul li.card.bug div.issue {
-  border: solid 1px #D8000C;
-  border-top-width: 3px;
+.controller-taskboard li.card.bug div.issue, p.sample.pink {
+  /*border: solid 1px #D8000C;
+  border-top-width: 3px;*/
+  background-image: url('/plugin_assets/redmine_task_board/images/postit_pink.png');
 }
 
-.taskboard-pane ul li.card.feature div.issue {
+.controller-taskboard li.card.critical_date div.issue, p.sample.green {
+  /*border: solid 1px #D8000C;
+  border-top-width: 3px;*/
+  background-image: url('/plugin_assets/redmine_task_board/images/postit_green.png');
+}
+
+.controller-taskboard li.card.feature div.issue {
   border: solid 1px #4F8A10;
   border-top-width: 3px;
 }
 
-.taskboard-pane ul li.card.support div.issue {
+.controller-taskboard li.card.support div.issue {
   border: solid 1px #00529B;
   border-top-width: 3px;
 }
 
-.taskboard-pane ul li.card.over-limit div.issue h3 a {
+.controller-taskboard li.card.over-limit div.issue h3 a {
   color: #aaa;
 }
 
-.taskboard-pane ul li.card div.issue {
-  padding: 3px;
+.controller-taskboard li.card div.issue {
+  padding: 10px;
 }
 
-.taskboard-pane ul li.card div.issue:hover {
+.controller-taskboard li.card div.issue:hover {
   cursor: pointer;
 }
 
-.taskboard-pane ul li.card div.issue p.meta {
-  font-size: 11px;
+.controller-taskboard li.card div.issue p.meta {
+  font-size: 10px;
   margin: 0;
   padding: 0;
 }
 
-.taskboard-pane ul li.card div.issue div.issue-heading {
+.controller-taskboard li.card div.issue div.issue-heading {
   overflow: auto;
   margin-bottom: 3px;
 }
 
-.taskboard-pane ul li.card div.issue div.issue-heading p.issue-number {
+.controller-taskboard li.card div.issue div.issue-heading p.issue-number {
   float: left;
 }
 
-.taskboard-pane ul li.card div.issue h3 {
+.controller-taskboard li.card div.issue h3 {
   font-size: 14px;
   margin-bottom: 3px;
 }
 
-.taskboard-pane ul li.card div.issue h3 a {
+.controller-taskboard li.card div.issue h3 a {
   color: #000;
 }
 
-.taskboard-pane ul li.card div.issue h3 a:hover {
+.controller-taskboard li.card div.issue h3 a:hover {
   color: #000;
   text-decoration: none;
   border-bottom: none;
@@ -120,7 +127,8 @@
 
 .issue-priority {
   float: right;
-  padding: 2px;
+  padding-top: 2px;
+  padding-right: 5px;
   font-size: 9px;
   margin: 0;
 }
@@ -139,25 +147,94 @@ ul#not-prioritized {
   overflow: hidden;
 }
 
-#not-prioritized-wrapper ul li {
+#not-prioritized-wrapper li {
   float: left;
   width: 200px;
   height: 70px;
   margin: 0 10px 10px 0;
 }
 
-#not-prioritized-wrapper ul li .issue {
+#not-prioritized-wrapper li .issue {
   height: 60px;
 }
 
-#not-prioritized-wrapper ul li .issue .issue-heading {
+#not-prioritized-wrapper li .issue .issue-heading {
   height: 16px;
 }
 
-#not-prioritized-wrapper ul li .issue h3 {
+#not-prioritized-wrapper li .issue h3 {
   height: 24px;
   line-height: 12px;
   font-size: 12px;
   margin-bottom: 0;
   overflow: hidden;
+}
+
+.issue-footer {
+  font-size: 9px;
+}
+
+p.sample {
+  width: 190px;
+  height: 75px;
+  float:left;
+  line-height: 75px;
+  text-align: center;
+}
+
+div.issue, p.sample {
+  background-image: url('/plugin_assets/redmine_task_board/images/postit_yellow.png');
+  background-size: 100% 100%;  
+  background-color: transparent;
+  border-style: none;
+  position: relative;
+}
+
+p.sample.selected {
+  font-weight: bold;
+}
+
+#filters-table {
+  float:left;
+}
+
+.estimate_time {
+    background-color: #EE0000;
+    border: 2px solid #FFFFFF;
+    border-radius: 20px 20px 20px 20px;
+    color: #FFFFFF;
+    font-size: 12px;
+    height: 20px;
+    padding-left: 5px;
+    padding-right: 5px;
+    position: absolute;
+    right: -5px;
+    top: -5px;
+}
+
+.placeHolder {
+    border: 3px solid #EEEEEE;
+    text-align: center;
+    margin: 10px;
+    background-size: 50px 50px;
+    box-shadow: 1px 1px 8px gray;
+    background-color: #AACC00;
+    background-image: linear-gradient(45deg, rgba(255, 255, 255, 0.2) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.2) 50%, rgba(255, 255, 255, 0.2) 75%, transparent 75%, transparent);
+}
+
+/* tooltip styling */
+#tooltip {
+  display:none;
+  border: 1px solid #111;
+  background-color: #eee;
+  padding: 5px;
+  opacity: 0.85;
+  max-width:600px;
+  font-size:12px;
+  color:#fff;
+  white-space: pre-wrap;
+  white-space: -moz-pre-wrap !important;
+  white-space : pre;
+  /*word-break: break-all;*/
+  word-wrap: break-word; /* IE */
 }
